@@ -31,3 +31,10 @@ form.addEventListener("submit", (e) => {
   e.preventDefault();
   saveData();
 });
+
+const removeStorage = () => {
+  localStorage.removeItem(localStorageKey);
+  nameInLocalStorage = [];
+  input.setAttribute("placeholder", "nome");
+};
+deleteBtn.addEventListener("click", removeStorage);
