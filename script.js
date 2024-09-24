@@ -8,7 +8,7 @@ const handleSubmit = function (e) {
 
   const name = input.value;
   console.log("nome indicato", name);
-  let nameInLocaleStorage = logalStorage.getItem(localStorageKey);
+  let nameInLocaleStorage = localStorage.getItem(localStorageKey);
   if (!nameInLocaleStorage) {
     nameInLocaleStorage = [];
   } else {
