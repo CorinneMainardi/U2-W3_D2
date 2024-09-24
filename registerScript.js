@@ -2,25 +2,32 @@ const localStorageKey = "registration-memory";
 
 const form = document.querySelector("form");
 const input = document.getElementById("name");
+const saveBtn = document.getElementById("save");
+const deleteBtn = document.getElementById("delete");
+let nameInLocalStorage;
+if (localStorage.getItem(localStorageKey)) {
+  nameInLocalStorage = JSON.parse(localStorage.getItem(localStorageKey));
+} else {
+  nameInLocalStorage = [];
+}
+if (nameInLocalStorage.length > 0) {
+  let i = nameInLocalStorage.length - 1;
+  let placeholder = input.setAttribute("placeholder", nameInLocalStorage[i]);
+}
 
-const handleSubmit = function (e) {
-  e.preventDefault();
-
+const saveData = () => {
   const name = input.value;
-  console.log("nome indicato", name);
-  let nameInLocaleStorage = localStorage.getItem(localStorageKey);
-  if (!nameInLocaleStorage) {
-    nameInLocaleStorage = [];
+  if (name.length > 2) {
+    nameInLocalStorage.push(name);
+    localStorage.setItem(localStorageKey, JSON.stringify(nameInLocalStorage));
+    let i = nameInLocalStorage.length - 1;
+    let placeholder = input.setAttribute("placeholder", nameInLocalStorage[i]);
+    form.reset();
   } else {
-    nameInLocaleStorage = JSON.parse(nameInLocaleStorage);
-  }
-  if (name) {
-    nameInLocaleStorage.push(name);
-  } else {
-    alert("non hai inserito un nome, inseriscilo!");
-  }
-  if (nameInLocaleStorage.length > 1) {
-    input.setAttribute("placeholder", `${nameInLocaleStorage[nameInLocaleStorage.length - 1]}`);
+    alert("inserisci un nome valido");
   }
 };
-form.addEventListener("submit", handleSubmit);
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  saveData();
+});
