@@ -2,8 +2,17 @@ const localStorageKey = "time-memory";
 
 const time = document.getElementById("time");
 
-const handleSubmit = function (e) {
-  e.preventDefault();
+let sec = 0;
 
-  let timer = localStorage.getItem(localStorageKey);
+if (sessionStorage.getItem(localStorageKey)) {
+  sec = sessionStorage.getItem(localStorageKey);
+} else {
+  sec = 0;
+}
+
+const addSec = () => {
+  sec++;
+  sessionStorage.setItem(localStorageKey, sec);
+  time.innerText = sec;
 };
+setInterval(addSec, 1000);
